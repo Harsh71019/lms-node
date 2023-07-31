@@ -35,7 +35,17 @@ const authUser = asyncHandler(async (req, res) => {
 // @access Public
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, mobile, password } = req.body;
+  const {
+    name,
+    email,
+    mobile,
+    password,
+    dateOfJoining,
+    department,
+    designation,
+    location,
+    dob,
+  } = req.body;
 
   const userExist = await User.findOne({ email });
 
@@ -49,6 +59,11 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     mobile,
     password,
+    dateOfJoining,
+    department,
+    designation,
+    location,
+    dob,
   });
 
   if (user) {
@@ -58,6 +73,12 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       mobile: user.mobile,
       isAdmin: user.isAdmin,
+      dateOfJoining: user.dateOfJoining,
+      department: user.department,
+      designation: user.designation,
+      location: user.location,
+      dob: user.dob,
+
       token: generateToken(user._id),
     });
   } else {
@@ -80,6 +101,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
       mobile: user.mobile,
       isAdmin: user.isAdmin,
+      dateOfJoining: user.dateOfJoining,
+      department: user.department,
+      designation: user.designation,
+      location: user.location,
+      dob: user.dob,
     });
   } else {
     res.status(401);
