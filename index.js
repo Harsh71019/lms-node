@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import colors from 'colors';
 import userRoutes from './routes/userRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import morgan, { token } from 'morgan';
 import path from 'path';
@@ -55,6 +56,7 @@ app.use(limiter);
 app.use(hpp());
 
 app.use('/api/users', userRoutes);
+app.use('/api/tasks', taskRoutes);
 
 app.get('/', (req, res) => {
   res.send('API IS RUNNING');
