@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Task from '../models/taskModel.js'; // Import your Task model
-// import any other necessary modules
+import Task from '../models/taskModel.js';
 
 // @desc    Create a new task
 // @route   POST /api/tasks
@@ -92,4 +91,27 @@ const deleteTask = asyncHandler(async (req, res) => {
   }
 });
 
-export { createTask, getTasks, getTaskById, updateTask, deleteTask };
+const updateTaskStatus = asyncHandler(async (req, res) => {
+  const { status } = req.body;
+
+  const task = await Task.findById(req.params.id);
+
+  if (task) {
+    task.status = status;
+
+    const updatedTask = await task.save();
+    res.json(updatedTask);
+  } else {
+    res.status(404);
+    throw new Error('Task not found');
+  }
+});
+
+export {
+  createTask,
+  getTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
+  updateTaskStatus,
+};

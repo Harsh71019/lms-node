@@ -7,7 +7,8 @@ import {
   getTaskById,
   updateTask,
   deleteTask,
-} from '../controllers/taskController.js'; // Import your task controller functions
+  updateTaskStatus,
+} from '../controllers/taskController.js';
 
 // Task routes
 router.route('/').post(protect, createTask).get(protect, getTasks);
@@ -16,5 +17,7 @@ router
   .get(protect, getTaskById)
   .put(protect, updateTask)
   .delete(protect, deleteTask);
+
+router.patch('/:id/status', protect, updateTaskStatus);
 
 export default router;
